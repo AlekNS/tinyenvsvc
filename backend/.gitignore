@@ -1,0 +1,10 @@
+#
+# Configs
+#
+.env
+
+#
+# Caches
+#
+.pyc
+__pycache__
