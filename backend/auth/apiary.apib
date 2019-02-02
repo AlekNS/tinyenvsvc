@@ -1,0 +1,117 @@
+FORMAT: 1A
+HOST: https://auth:8080/
+
+# Tiny Auth Service
+
+
+# Group Authentication
+
+## Login [/api/auth/register]
+
+Register new user.
+
+### Login [POST]
+
++ Request (application/json)
+
+    + Attributes
+
+        + email: `test@test.com` (required, string) - Email
+        + password: `password` (required, string) - Password
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+                "email": "test@test.com",
+                "password": "lkbDnPBonHrTX6T12BwXO="
+            }
+
++ Response 200 (application/json)
+
+        {
+            "accessToken": "zyJhbG.eyJrZCI6..."
+        }
+
++ Response 400 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+## Login [/api/auth/login]
+
+Login to get JWT for the API calls.
+
+### Login [POST]
+
++ Request (application/json)
+
+    + Attributes
+
+        + email: `test@test.com` (required, string) - Email
+        + password: `password` (required, string) - Password
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+                "email": "test@test.com",
+                "password": "lkbDnPBonHrTX6T12BwXO="
+            }
+
++ Response 200 (application/json)
+
+        {
+            "accessToken": "zyJhbG.eyJrZCI6..."
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+
+## Validate [/api/auth/validate]
+
+Validate JWT.
+
+### Validate [POST]
+
++ Request (application/json)
+
+    + Attributes
+
+        + accessToken: `zyJhbG.eyJrZCI6...` (required, string) - JWT body
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+            {
+                "accessToken": "zyJhbG.eyJrZCI6..."
+            }
+
++ Response 200 (application/json)
+
+        {
+            "statusCode": 200
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
