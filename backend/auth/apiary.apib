@@ -106,7 +106,11 @@ Validate JWT.
 + Response 200 (application/json)
 
         {
-            "statusCode": 200
+            "statusCode": 200,
+            "decodedToken": {
+                "uid": 10,
+                "exp": 1549130000
+            }
         }
 
 + Response 401 (application/json)

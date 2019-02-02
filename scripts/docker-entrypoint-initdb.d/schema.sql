@@ -25,7 +25,7 @@ create table measurements (
   real_value   double precision not null default 0.0
 ); -- partition by range (measured_at); -- Need to be used
 
-create index measurements_measured_at_inx_id_parameter on measurements (measured_at, id_parameter);
+create index measurements_measured_at_inx_id_parameter on measurements (measured_at, parameter_id);
 
 create or replace function date_trunc_epoch(src_date timestamp, trunc_interval interval)
 returns timestamp as $$

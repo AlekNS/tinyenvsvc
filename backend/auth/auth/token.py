@@ -13,13 +13,17 @@ class JwtToken:
 
     async def sign(self, values: dict) -> str:
         '''
-        Sign json dictionary.
+        Sign dictionary.
+
+        :return: JWT as string
         '''
         return jwt.encode(values, self.secret, algorithm=self.alg)
 
     async def decode(self, token: str) -> dict:
         '''
         Decode token.
+
+        :return: Decoded values or None for invalid token
         '''
         try:
             values = jwt.decode(token, self.secret, algorithms=self.alg)
