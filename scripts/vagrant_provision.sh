@@ -20,4 +20,5 @@ usermod -a -G docker ${user}
 
 echo "Starting docker compose"
 cd /var/www/tinyenvsvc
+docker-compose build
 docker-compose up -d

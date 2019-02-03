@@ -1,0 +1,66 @@
+version: '3.7'
+
+networks:
+  network:
+
+services:
+  postgres:
+    image: postgres:11
+    restart: always
+    networks:
+      network:
+        aliases:
+          - postgres
+    volumes:
+      - ./scripts/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 15432:5432
+
+  backend-stats:
+    image: alekns/tinyenvsvc-stats:latest
+    restart: always
+    build:
+      context: ./backend/stats
+    networks:
+      network:
+        aliases:
+          - stats
+    environment:
+      STATS_DB_HOST: 'postgres'
+    depends_on:
+      - postgres
+      - backend-auth
+    ports:
+      - 28080:8080
+
+  backend-auth:
+    image: alekns/tinyenvsvc-auth:latest
+    restart: always
+    build:
+      context: ./backend/auth
+    networks:
+      network:
+        aliases:
+          - auth
+    environment:
+      AUTH_DB_HOST: 'postgres'
+    depends_on:
+      - postgres
+    ports:
+      - 28081:8080
+
+  frontend:
+    image: alekns/tinyenvsvc-frontend:latest
+    restart: always
+    build:
+      context: ./frontend
+    ports:
+      - 18080:8080
+      - 18443:8443
+    networks:
+      network:
+        aliases:
+          - frontend
+    depends_on:
+      - backend-auth
+      - backend-stats

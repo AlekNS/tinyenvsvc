@@ -4,7 +4,7 @@ HOST: https://stats:18443/
 # Tiny Environment Service
 
 
-## Variables Dictionary [/api/dicts/variables]
+## Variables Dictionary [/api/stats/dicts/variables]
 
 Query all available variables (parameters).
 
@@ -38,7 +38,7 @@ Query all available variables (parameters).
         }
 
 
-## Stations Dictionary [/api/dicts/stations]
+## Stations Dictionary [/api/stats/dicts/stations]
 
 Query all available stations.
 
@@ -72,7 +72,7 @@ Query all available stations.
         }
 
 
-## Upload CSV [/api/uploads/measurements/csv]
+## Upload CSV [/api/stats/uploads/measurements/csv]
 
 Upload measurements data in CSV format.
 
@@ -111,7 +111,7 @@ Upload measurements data in CSV format.
         }
 
 
-## Summary [/api/statistics/variables/{variable}/summary{?skip}{?limit}{?timestamp_from}{?timestamp_until}{?method}]
+## Summary [/api/stats/statistics/variables/{variable}/summary{?skip}{?limit}{?timestamp_from}{?timestamp_until}{?method}]
 
 Query summary stations statistics.
 
@@ -161,7 +161,7 @@ Query summary stations statistics.
             "message": "Unauthorized"
         }
 
-## Threshold overcome [/api/statistics/thresholds/variables/{variable}/overcomes{?skip}{?limit}{?step}{?timestamp_from}{?timestamp_until}{?threshold_low}{?threshold_high}{?method}]
+## Threshold overcome [/api/stats/statistics/thresholds/variables/{variable}/overcomes{?skip}{?limit}{?step}{?timestamp_from}{?timestamp_until}{?threshold_low}{?threshold_high}{?method}]
 
 Query threshold overcome variables for all stations.
 
@@ -227,7 +227,7 @@ Query threshold overcome variables for all stations.
 
 Query aggregated time series of variables.
 
-## Time Series [/api/statistics/time-series/stations/{station}/variables/{variable}{?skip}{?limit}{?step}{?timestamp_from}{?timestamp_until}{?method}]
+## Time Series [/api/stats/statistics/time-series/stations/{station}/variables/{variable}{?skip}{?limit}{?step}{?timestamp_from}{?timestamp_until}{?method}]
 
 + Parameters
 

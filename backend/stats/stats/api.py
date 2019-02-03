@@ -16,6 +16,6 @@ async def index_handle(request):
     return json({'title': 'Stats Service'})
 
 app.middleware(auth_middleware('/api/'))
-app.blueprint(uploadsapi.module, url_prefix='/api/uploads')
-app.blueprint(gatheringapi.module, url_prefix='/api/statistics')
-app.blueprint(dictsapi.module, url_prefix='/api/dicts')
+app.blueprint(uploadsapi.module, url_prefix='/api/stats/uploads')
+app.blueprint(gatheringapi.module, url_prefix='/api/stats/statistics')
+app.blueprint(dictsapi.module, url_prefix='/api/stats/dicts')
