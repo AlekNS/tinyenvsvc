@@ -30,7 +30,7 @@ create index measurements_measured_at_inx_id_parameter on measurements (measured
 create or replace function date_trunc_epoch(src_date timestamp, trunc_interval interval)
 returns timestamp as $$
   select (
-    date_trunc('seconds', (src_date - timestamp 'epoch') / extract(epoch from trunc_interval)::integer)
+    date_trunc('minutes', (src_date - timestamp 'epoch') / extract(epoch from trunc_interval)::integer)
      * extract(epoch from trunc_interval)::integer + timestamp 'epoch'
   );
 $$ language sql immutable;
