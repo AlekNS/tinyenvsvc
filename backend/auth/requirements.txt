@@ -1,6 +1,7 @@
 jsonschema==2.6.0
 python-dotenv==0.10.1
 sanic==18.12.0
+sanic-cors==0.9.7
 bcrypt==3.1.6
 gino==0.8.1
 PyJWT==1.7.1
