@@ -11,7 +11,7 @@ from io import TextIOWrapper, BytesIO
 from ..db import DataBase
 from .module import module
 from .loader import MeasurementsCsvLoader
-# from ..auth import auth
+
 
 BATCH_SIZE = 1000
 

@@ -120,9 +120,9 @@ Query summary stations statistics.
     + variable (string) - Variable name
     + skip (number, optional) - Skip records
     + limit (number, optional) - Limit records
-    + timestamp_from (string, optional) - ISO Timestamp from (-1h by default)
-    + timestamp_until (string, optional) - ISO Timestamp until (now by default)
-    + method (string, optional) - sum, mean, max, min or all (default)
+    + timestamp_from (string, required) - ISO Timestamp from (-1h by default)
+    + timestamp_until (string, required) - ISO Timestamp until (now by default)
+    + method (string, optional) - sum, avg, max, min, count or all (default)
 
 ### Summary [GET]
 
@@ -138,18 +138,18 @@ Query summary stations statistics.
             "statusCode": 200,
             "data": [
                 {
-                    "id_station": 10,
+                    "station": "station1",
                     "sum": 100,
                     "max": 100,
                     "min": 10,
-                    "mean": 50
+                    "avg": 50
                 },
                 {
-                    "id_station": 11,
+                    "station": "station2",
                     "sum": 200,
                     "max": 200,
                     "min": 20,
-                    "mean": 100
+                    "avg": 100
                 }
             ]
         }
@@ -161,37 +161,26 @@ Query summary stations statistics.
             "message": "Unauthorized"
         }
 
-## Threshold overcome [/api/statistics/thresholds/variables/{variable}/actions]
+## Threshold overcome [/api/statistics/thresholds/variables/{variable}/overcomes{?skip}{?limit}{?step}{?timestamp_from}{?timestamp_until}{?threshold_low}{?threshold_high}{?method}]
 
 Query threshold overcome variables for all stations.
 
-### Threshold overcome [POST]
++ Parameters
+
+    + skip (number, optional) - Skip records
+    + limit (number, optional) - Limit records
+    + timestamp_from (string, required) - ISO Timestamp from (-1h by default)
+    + timestamp_until (string, required) - ISO Timestamp until (now by default)
+    + threshold_low (number, required) - Threshold from value
+    + threshold_high (number, required) - Threshold to value
+
+### Threshold overcome [GET]
 
 + Request (application/json)
-
-    + Attributes
-
-        + action: `overcome` (string, required) - Action to be executed (only `overcome` for this section).
-        + skip - Skip records
-        + limit - Limit records
-        + timestamp_from - ISO Timestamp from (-1h by default)
-        + timestamp_until - ISO Timestamp until (now by default)
-        + threshold_from (number, required) - Threshold from value
-        + threshold_to (number, required) - Threshold to value
 
     + Headers
 
             Accept: application/json
-
-    + Body
-
-                {
-                    "action": "overcome",
-                    "timestamp_from": "2018-01-01T10:45:00.000Z",
-                    "timestamp_until": "2018-01-20T10:45:00.000Z",
-                    "threshold_from": 0,
-                    "threshold_to": 100
-                }
 
 + Response 200 (application/json)
 
@@ -200,7 +189,7 @@ Query threshold overcome variables for all stations.
             "data": [
                 {
                     "station": "station1",
-                    "overcome": [
+                    "overcomes": [
                         {
                             "date": "2018.01.01",
                             "count": 12
@@ -213,7 +202,7 @@ Query threshold overcome variables for all stations.
                 },
                 {
                     "station": "station2",
-                    "overcome": [
+                    "overcomes": [
                         {
                             "date": "2018.01.02",
                             "count": 2
@@ -247,9 +236,9 @@ Query aggregated time series of variables.
     + skip (optional, number) - Skip records
     + limit (optional, number) - Limit records
     + step (optional, number) - Aggregation interval in minutes (default 5)
-    + timestamp_from (optional, string) - ISO Timestamp from (-1h by default)
-    + timestamp_until (optional, string) - ISO Timestamp until (now by default)
-    + method (optional, string) - One of sum, mean, max, min.
+    + timestamp_from (required, string) - ISO Timestamp from (-1h by default)
+    + timestamp_until (required, string) - ISO Timestamp until (now by default)
+    + method (optional, string) - One of sum, avg, max, min count or all (default)
 
 ### Time Series [GET]
 
@@ -266,11 +255,11 @@ Query aggregated time series of variables.
             "data": [
                 {
                     "measured_at": "2018-01-01T10:45:00.000Z",
-                    "mean": 50
+                    "avg": 50
                 },
                 {
                     "measured_at": "2018-01-01T10:50:00.000Z",
-                    "mean": 100
+                    "avg": 100
                 }
             ]
         }
