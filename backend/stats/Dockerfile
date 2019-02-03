@@ -1,12 +1,11 @@
 FROM python:3.6-alpine
 
-RUN adduser -D auth
-USER auth
+RUN adduser -D stats
+USER stats
 
-WORKDIR /home/auth
+WORKDIR /home/stats
 
 COPY app .
-COPY .env.prod .env
 COPY requirements.txt .
 
 RUN python -m venv venv

@@ -1,0 +1,283 @@
+FORMAT: 1A
+HOST: https://stats:18443/
+
+# Tiny Environment Service
+
+
+## Variables Dictionary [/api/dicts/variables]
+
+Query all available variables (parameters).
+
+### Summary [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+        {
+            "statusCode": 200,
+            "data": [
+                {
+                    "name": "parameter1",
+                },
+                {
+                    "name": "parameter2",
+                }
+            ]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+
+## Stations Dictionary [/api/dicts/stations]
+
+Query all available stations.
+
+### Summary [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+        {
+            "statusCode": 200,
+            "data": [
+                {
+                    "name": "station1",
+                },
+                {
+                    "name": "station2",
+                }
+            ]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+
+## Upload CSV [/api/uploads/measurements/csv]
+
+Upload measurements data in CSV format.
+
+### Upload CSV [POST]
+
++ Request (multipart/form-data; boundary=---BOUNDARY)
+
+        -----BOUNDARY
+        Content-Disposition: form-data; name="csv[file]"; filename="example.csv"
+        Content-Type: text/csv
+        Content-Transfer-Encoding: base64
+
+        ZJRgABAQEAYABgAAD==
+        -----BOUNDARY
+
++ Response 201 (application/json)
+
+        {
+            "statusCode": 201,
+            "processedRows": 10
+        }
+
++ Response 400 (application/json)
+
+        {
+            "statusCode": 400,
+            "message": "Bad Request",
+            "details": "Invalid CSV format. No headers."
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+
+## Summary [/api/statistics/variables/{variable}/summary{?skip}{?limit}{?timestamp_from}{?timestamp_until}{?method}]
+
+Query summary stations statistics.
+
++ Parameters
+
+    + variable (string) - Variable name
+    + skip (number, optional) - Skip records
+    + limit (number, optional) - Limit records
+    + timestamp_from (string, optional) - ISO Timestamp from (-1h by default)
+    + timestamp_until (string, optional) - ISO Timestamp until (now by default)
+    + method (string, optional) - sum, mean, max, min or all (default)
+
+### Summary [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+        {
+            "statusCode": 200,
+            "data": [
+                {
+                    "id_station": 10,
+                    "sum": 100,
+                    "max": 100,
+                    "min": 10,
+                    "mean": 50
+                },
+                {
+                    "id_station": 11,
+                    "sum": 200,
+                    "max": 200,
+                    "min": 20,
+                    "mean": 100
+                }
+            ]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+## Threshold overcome [/api/statistics/thresholds/variables/{variable}/actions]
+
+Query threshold overcome variables for all stations.
+
+### Threshold overcome [POST]
+
++ Request (application/json)
+
+    + Attributes
+
+        + action: `overcome` (string, required) - Action to be executed (only `overcome` for this section).
+        + skip - Skip records
+        + limit - Limit records
+        + timestamp_from - ISO Timestamp from (-1h by default)
+        + timestamp_until - ISO Timestamp until (now by default)
+        + threshold_from (number, required) - Threshold from value
+        + threshold_to (number, required) - Threshold to value
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+                {
+                    "action": "overcome",
+                    "timestamp_from": "2018-01-01T10:45:00.000Z",
+                    "timestamp_until": "2018-01-20T10:45:00.000Z",
+                    "threshold_from": 0,
+                    "threshold_to": 100
+                }
+
++ Response 200 (application/json)
+
+        {
+            "statusCode": 200,
+            "data": [
+                {
+                    "station": "station1",
+                    "overcome": [
+                        {
+                            "date": "2018.01.01",
+                            "count": 12
+                        },
+                        {
+                            "date": "2018.01.11",
+                            "count": 2
+                        }
+                    ]
+                },
+                {
+                    "station": "station2",
+                    "overcome": [
+                        {
+                            "date": "2018.01.02",
+                            "count": 2
+                        },
+                        {
+                            "date": "2018.01.14",
+                            "count": 3
+                        }
+                    ]
+                }
+            ]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
+
+# Group Time Series
+
+Query aggregated time series of variables.
+
+## Time Series [/api/statistics/time-series/stations/{station}/variables/{variable}{?skip}{?limit}{?step}{?timestamp_from}{?timestamp_until}{?method}]
+
++ Parameters
+
+    + station (required, string) - Station
+    + variable (required, string) - Variable
+    + skip (optional, number) - Skip records
+    + limit (optional, number) - Limit records
+    + step (optional, number) - Aggregation interval in minutes (default 5)
+    + timestamp_from (optional, string) - ISO Timestamp from (-1h by default)
+    + timestamp_until (optional, string) - ISO Timestamp until (now by default)
+    + method (optional, string) - One of sum, mean, max, min.
+
+### Time Series [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+        {
+            "statusCode": 200,
+            "data": [
+                {
+                    "measured_at": "2018-01-01T10:45:00.000Z",
+                    "mean": 50
+                },
+                {
+                    "measured_at": "2018-01-01T10:50:00.000Z",
+                    "mean": 100
+                }
+            ]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "statusCode": 401,
+            "message": "Unauthorized"
+        }
