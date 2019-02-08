@@ -6,8 +6,6 @@ import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
-} else {
-  console.log && console.log('!!!!!!!!!! DEVELOPMENT MODE !!!!!!!!!!');
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)

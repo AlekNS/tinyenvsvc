@@ -21,6 +21,10 @@ Installation
 1. `$ vagrant up`
 1. Wait, until it's finished. On successfully end it's displayed "Ready. Enjoy!"
 
+Run
+----
+Go to the url in your browser: `http://192.168.101.112:8080`
+
 
 ### Docker
 
@@ -38,7 +42,7 @@ Installation
 
 Run
 ----
-Go to the url in your browser: `http://localhost:18443/` or `http://192.168.10.112/:18080`
+Go to the url in your browser: `http://localhost:18080/`
 
 
 Troubleshooting
