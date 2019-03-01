@@ -143,7 +143,7 @@ class ThresholdOvercomeVariable:
                         count(station_id),
                         date_trunc_epoch(measured_at, '1 days') as date
                     FROM
-                        {measurements}
+                        "{measurements}"
                     WHERE
                         measured_at between $1 AND $2 AND
                         parameter_id = (
@@ -206,7 +206,7 @@ class StationTimeSeries:
                         date_trunc_epoch(measured_at, '{interval} minutes'::interval) as dt,
                         {method}
                     FROM
-                        {measurements}
+                        "{measurements}"
                     WHERE
                         measured_at between $1 AND $2 AND
                         parameter_id = (

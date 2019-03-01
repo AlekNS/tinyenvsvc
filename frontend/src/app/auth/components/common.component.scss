@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  height: 90vh;
+}
+
+.form-card {
+  width: 300px;
+}
+
+.addition {
+  text-align: right;
+  flex: 1;
+}
+
+.form-input {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}

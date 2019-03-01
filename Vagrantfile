@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "vtinyenvsvc.vm"
   config.vm.box      = "debian/stretch64"
 
-  config.vm.network :private_network, ip: "192.168.101.112"
+  config.vm.network :private_network, ip: "192.168.10.112"
   config.vm.network :forwarded_port, guest: 18443, host: 8443
   config.vm.network :forwarded_port, guest: 18080, host: 8080
 

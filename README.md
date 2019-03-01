@@ -23,7 +23,7 @@ Installation
 
 Run
 ----
-Go to the url in your browser: `http://192.168.101.112:8080`
+Go to the url in your browser: `http://192.168.10.112:8080`
 
 
 ### Docker
